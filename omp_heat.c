@@ -6,6 +6,14 @@
 int main(int argc, char *argv[]) {
     int Nx = 200, Ny = 200;
     int Nt = 1000;
+    // Read command line arguments
+    if (argc >= 3) {
+        Nx = atoi(argv[1]);
+        Ny = atoi(argv[2]);
+    }
+    if (argc >= 4) {
+        Nt = atoi(argv[3]);
+    }
     double Lx = 1.0, Ly = 1.0;
     double alpha = 0.0001;
     double dx = Lx/(Nx-1), dy = Ly/(Ny-1);
@@ -20,7 +28,8 @@ int main(int argc, char *argv[]) {
     }
 
     // threads info
-    int threads = omp_get_max_threads();
+    //int threads = omp_get_max_threads();
+    int threads = 4; // Set number of threads explicitly if needed
 
     // initial condition
     #pragma omp parallel for collapse(2)
@@ -60,10 +69,18 @@ int main(int argc, char *argv[]) {
     double mlups = updates / elapsed / 1e6;
 
     // report
-    printf("OpenMP run (%d threads):\n", threads);
-    printf("  Time           : %.6f s\n", elapsed);
-    printf("  Throughput     : %.2f MLUPS\n", mlups);
-    printf("  u_center (mid) : %f\n", u[Nx/2][Ny/2]);
+    printf("Implementation: OpenMP\n");
+    printf("Threads: %d\n", threads);
+    printf("GridSize: %dx%d\n", Nx, Ny);
+    printf("TimeSteps: %d\n", Nt);
+    printf("Time: %.6f\n", elapsed);
+    printf("Throughput: %.2f\n", mlups);
+    printf("CenterValue: %f\n", u[Nx/2][Ny/2]);
+    
+    // printf("OpenMP run (%d threads):\n", threads);
+    // printf("  Time           : %.6f s\n", elapsed);
+    // printf("  Throughput     : %.2f MLUPS\n", mlups);
+    // printf("  u_center (mid) : %f\n", u[Nx/2][Ny/2]);
 
     // cleanup
     for(int i=0;i<Nx;i++){

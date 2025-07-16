@@ -5,7 +5,16 @@
 
 int main(int argc, char *argv[]) {
     int Nx = 200, Ny = 200;        // grid points
-    int Nt = 1000;                 // time steps
+    int Nt = 1000;    
+        // Read command line arguments
+    if (argc >= 3) {
+      Nx = atoi(argv[1]);
+      Ny = atoi(argv[2]);
+    }
+    if (argc >= 4) {
+        Nt = atoi(argv[3]);
+    }
+                   // time steps
     double Lx = 1.0, Ly = 1.0;
     double alpha = 0.0001;
     double dx = Lx/(Nx-1), dy = Ly/(Ny-1);
@@ -55,10 +64,17 @@ int main(int argc, char *argv[]) {
     double mlups = updates / elapsed / 1e6;
 
     // report
-    printf("Serial run:\n");
-    printf("  Time           : %.6f s\n", elapsed);
-    printf("  Throughput     : %.2f MLUPS\n", mlups);
-    printf("  u_center (mid) : %f\n", u[Nx/2][Ny/2]);
+    printf("Implementation: Serial\n");
+    printf("GridSize: %dx%d\n", Nx, Ny);
+    printf("TimeSteps: %d\n", Nt);
+    printf("Time: %.6f\n", elapsed);
+    printf("Throughput: %.2f\n", mlups);
+    printf("CenterValue: %f\n", u[Nx/2][Ny/2]);
+
+    // printf("Serial run:\n");
+    // printf("  Time           : %.6f s\n", elapsed);
+    // printf("  Throughput     : %.2f MLUPS\n", mlups);
+    // printf("  u_center (mid) : %f\n", u[Nx/2][Ny/2]);
 
     // cleanup
     for(int i=0;i<Nx;i++){

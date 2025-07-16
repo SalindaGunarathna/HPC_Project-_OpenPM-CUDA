@@ -76,10 +76,17 @@ int main(int argc, char *argv[]) {
     double mlups = updates / elapsed / 1e6;
 
     // Report
-    printf("CUDA run (GPU):\n");
-    printf("  Time           : %.6f s\n", elapsed);
-    printf("  Throughput     : %.2f MLUPS\n", mlups);
-    printf("  u_center (mid) : %f\n", u[IDX(Nx/2,Ny/2,Ny)]);
+    printf("Implementation: Hybrid\n");
+    printf("GridSize: %dx%d\n", Nx, Ny);
+    printf("TimeSteps: %d\n", Nt);
+    printf("Time: %.6f\n", elapsed);
+    printf("Throughput: %.2f\n", mlups);
+    printf("CenterValue: %f\n", u[IDX(Nx/2,Ny/2,Ny)]);
+    
+    // printf("CUDA run (GPU):\n");
+    // printf("  Time           : %.6f s\n", elapsed);
+    // printf("  Throughput     : %.2f MLUPS\n", mlups);
+    // printf("  u_center (mid) : %f\n", u[IDX(Nx/2,Ny/2,Ny)]);
 
     // Cleanup
     free(u);
