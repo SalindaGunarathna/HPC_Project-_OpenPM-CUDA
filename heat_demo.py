@@ -281,3 +281,7 @@ if __name__ == "__main__":
     main()
 
     
+#   chmod +x compile_all.sh
+#   ./compile_all.sh
+#   source venv/bin/activate
+#   python3 heat_demo.py

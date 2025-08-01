@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 
     // threads info
     //int threads = omp_get_max_threads();
-    int threads = 4; // Set number of threads explicitly if needed
+    int threads = 4;  
 
     // initial condition
     #pragma omp parallel for collapse(2)
@@ -63,7 +63,11 @@ int main(int argc, char *argv[]) {
 
     double t1 = omp_get_wtime();
     double elapsed = t1 - t0;
-
+    FILE *file = fopen("openmp_heat_distribution.csv", "w");
+    if (file == NULL) {
+        printf("Error: Could not create output file\n");
+        return 1;
+    }
     // throughput
     double updates = (double)Nt*(Nx-2)*(Ny-2);
     double mlups = updates / elapsed / 1e6;
@@ -82,6 +86,13 @@ int main(int argc, char *argv[]) {
     // printf("  Throughput     : %.2f MLUPS\n", mlups);
     // printf("  u_center (mid) : %f\n", u[Nx/2][Ny/2]);
 
+    for(int i = 0; i < Nx; i++) {
+        for(int j = 0; j < Ny; j++) {
+            fprintf(file, "%.10e", u[i][j]);
+            if(j < Ny-1) fprintf(file, ",");
+        }
+        fprintf(file, "\n");
+    }
     // cleanup
     for(int i=0;i<Nx;i++){
       free(u[i]);

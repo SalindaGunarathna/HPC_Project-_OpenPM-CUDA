@@ -1,0 +1,34 @@
+================================================================================
+HEAT EQUATION SOLVER ERROR ANALYSIS REPORT
+================================================================================
+Generated on: 2025-08-01 10:50:31
+
+SUMMARY:
+This report compares parallel implementations against the serial baseline.
+
+ERROR METRICS COMPARISON:
+--------------------------------------------------------------------------------
+Method          MSE          RMSE         Max Abs Err  Mean Abs Err
+--------------------------------------------------------------------------------
+openmp          0.00e+00     0.00e+00     0.00e+00     cuda            1.13e-13     3.35e-07     2.08e-06     hybrid          1.99e-13     4.46e-07     3.73e-06     
+================================================================================
+DETAILED ANALYSIS:
+================================================================================
+
+METHOD: OPENMP
+----------------------------------------
+Mean Square Error (MSE):           0.000000e+00
+Root Mean Square Error (RMSE):     0.000000e+00
+Maximum Absolute Error:            0.000000e+00
+METHOD: CUDA
+----------------------------------------
+Mean Square Error (MSE):           1.125254e-13
+Root Mean Square Error (RMSE):     3.354480e-07
+Maximum Absolute Error:            2.084849e-06
+METHOD: HYBRID
+----------------------------------------
+Mean Square Error (MSE):           1.991054e-13
+Root Mean Square Error (RMSE):     4.462123e-07
+Maximum Absolute Error:            3.725477e-06
+INTERPRETATION GUIDE:
+...

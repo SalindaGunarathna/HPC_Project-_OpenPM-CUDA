@@ -63,6 +63,13 @@ int main(int argc, char *argv[]) {
     double updates = (double)Nt*(Nx-2)*(Ny-2);
     double mlups = updates / elapsed / 1e6;
 
+
+    FILE *file = fopen("serial_heat_distribution.csv", "w");
+    if (file == NULL) {
+        printf("Error: Could not create output file\n");
+        return 1;
+    }
+
     // report
     printf("Implementation: Serial\n");
     printf("GridSize: %dx%d\n", Nx, Ny);
@@ -75,6 +82,13 @@ int main(int argc, char *argv[]) {
     // printf("  Time           : %.6f s\n", elapsed);
     // printf("  Throughput     : %.2f MLUPS\n", mlups);
     // printf("  u_center (mid) : %f\n", u[Nx/2][Ny/2]);
+    for(int i = 0; i < Nx; i++) {
+        for(int j = 0; j < Ny; j++) {
+            fprintf(file, "%.10e", u[i][j]);
+            if(j < Ny-1) fprintf(file, ",");
+        }
+        fprintf(file, "\n");
+    }
 
     // cleanup
     for(int i=0;i<Nx;i++){
